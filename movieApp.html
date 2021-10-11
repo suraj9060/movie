@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie App</title>
+</head>
+<body>
+    <h1>Movie App </h1>
+    <input type="text" id="name" placeholder="Search Your Movie">
+    <button id="getMovie" onclick="getMovie()">Search</button>
+    <div id="main"></div>
+
+
+    <script>
+        //http://www.omdbapi.com/?i=tt3896198&apikey=ea6adc2b
+        //http://www.omdbapi.com/?i=${title}&apikey=ea6adc2b
+       async function getMovie(){
+           let name = document.getElementById("name").value;
+          var res = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=ea6adc2b`)
+          var data = await res.json()
+          console.log(data)
+          findMovie(data)
+        }
+
+        function findMovie(a){
+          var main= document.getElementById("main")
+
+           var h1 = document.createElement("h1")
+           h1.innerText = a.Title
+
+           var poster = document.createElement("img")
+           poster.src = a.Poster
+
+           var director = document.createElement("p")
+           director.innerText = a.Director
+
+           var boxOffice = document.createElement("p")
+             boxOffice.innerText = a.BoxOffice
+        
+
+           main.append(h1,poster,director,boxOffice)
+
+        }
+    </script>
+</body>
+</html>
