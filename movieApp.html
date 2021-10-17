@@ -1,48 +1,136 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie App</title>
-</head>
-<body>
-    <h1>Movie App </h1>
-    <input type="text" id="name" placeholder="Search Your Movie">
-    <button id="getMovie" onclick="getMovie()">Search</button>
+  </head>
+  <body>
+    <h1>Movie App</h1>
+    <input type="text" id="name" placeholder="Search Your Movie" />
+    <button onclick="getMovie()">Search</button>
     <div id="main"></div>
 
+    <script>
+      //http://www.omdbapi.com/?i=tt3896198&apikey=ea6adc2b
+      //http://www.omdbapi.com/?i=${title}&apikey=ea6adc2b
+      async function getMovie() {
+        let name = document.getElementById("name").value;
+        var res = await fetch(
+          `http://www.omdbapi.com/?t=${name}&apikey=ea6adc2b`
+        );
+        var data = await res.json();
+        console.log(data);
+        findMovie(data);
+      }
+
+      function findMovie(a) {
+        var main = document.getElementById("main");
+
+        var h1 = document.createElement("h1");
+        h1.innerText = a.Title;
+
+        var poster = document.createElement("img");
+        poster.src = a.Poster;
+
+        var director = document.createElement("p");
+        director.innerText = a.Director;
+
+        var boxOffice = document.createElement("p");
+        boxOffice.innerText = a.BoxOffice;
+
+        main.append(h1, poster, director, boxOffice);
+      }
+    </script>
+  </body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie App</title>
+    <style>
+      input{
+        width: 200px;
+      }
+      #Movie{
+        height: 200px;
+        width: 200px;
+        border: 3px solid black;
+        overflow: scroll;
+           
+      border-top: none;
+
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Movie App</h1>
+    <!-- <input type="text" id="name" placeholder="Search Your Movie" />
+    <button onclick="getMovie()">Search</button> -->
+
+    <input oninput="getMovie()" type="text" id="movie" placeholder="Enter movie name" />
+    <div id="Movie"></div>
 
     <script>
-        //http://www.omdbapi.com/?i=tt3896198&apikey=ea6adc2b
-        //http://www.omdbapi.com/?i=${title}&apikey=ea6adc2b
-       async function getMovie(){
-           let name = document.getElementById("name").value;
-          var res = await fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=ea6adc2b`)
-          var data = await res.json()
-          console.log(data)
-          findMovie(data)
+      //http://www.omdbapi.com/?i=tt3896198&apikey=ea6adc2b
+      //http://www.omdbapi.com/?i=${title}&apikey=ea6adc2b
+      async function getMovie(movie_name) {
+
+       try{
+        var res = await fetch( `http://www.omdbapi.com/?t=${name}&apikey=ea6adc2b`
+        );
+        var data = await res.json();
+        console.log(data);
+       }catch(e){
+         console.log(e)
+       }
+        appendMovie(data)
+        // findMovie(data);
+      }
+      
+
+      function appendMovie(movie) {
+        if(movie=== undefined){
+          return false
         }
+        movie.foreach(function(movies){
+          var main = document.getElementById("Movie");
 
-        function findMovie(a){
-          var main= document.getElementById("main")
+        var h1 = document.createElement("h1");
+        h1.innerText = movies.Title;
 
-           var h1 = document.createElement("h1")
-           h1.innerText = a.Title
+        var poster = document.createElement("img");
+        poster.src = movies.Poster;
 
-           var poster = document.createElement("img")
-           poster.src = a.Poster
+        var director = document.createElement("p");
+        director.innerText = movies.Director;
 
-           var director = document.createElement("p")
-           director.innerText = a.Director
+        var boxOffice = document.createElement("p");
+        boxOffice.innerText = movies.BoxOffice;
 
-           var boxOffice = document.createElement("p")
-             boxOffice.innerText = a.BoxOffice
+        main.append(h1, poster, director, boxOffice);
+        });
+          
         
+      }
+        
+      
 
-           main.append(h1,poster,director,boxOffice)
-
-        }
+     async function main(){
+        let name = document.getElementById("movie").value;
+         let res = await getMovie(name);
+         console.log(res)
+      
+      }
     </script>
-</body>
+  </body>
 </html>
+
