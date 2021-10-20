@@ -1,0 +1,38 @@
+body{
+    align-items: center;
+    justify-content: center;
+    
+}
+#movie{
+    width: 400px;
+    background-color: blanchedalmond;
+    height: 50px;
+    font-family: fantasy;
+   
+    
+}
+
+#pictur-Ala {
+    width: 406px;
+    height: 300px;
+    overflow: scroll;
+    background-color: lightgreen;
+   overflow: scroll;
+   overflow: scroll;
+    font-size: 20px ;
+    font-family: sans-serif;
+    font-weight: normal;
+  
+    
+    
+}
+
+p{
+    border : 2px solid red;
+    background-color: yellow;
+    font-size: 20px;
+    border-radius: 5px;
+}
+
+
+
